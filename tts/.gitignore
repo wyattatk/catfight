@@ -1,0 +1,10 @@
+# Prebuilt libraries that come down with the Go module, copied here by
+# build.ps1 out of the module cache. They are third-party binaries with their
+# own versioning -- committing them would mean carrying ~22 MB that `go mod
+# download` already has, and having it silently disagree with go.mod.
+onnxruntime.dll
+sherpa-onnx-*.dll
+
+# Build output. It belongs in build-catfight\Release\tts\, which build.ps1
+# writes to; anything here is somebody's stray `go build`.
+cftts.exe

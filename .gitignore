@@ -1,0 +1,81 @@
+# Anchored to the repo root on purpose. Unanchored, "build*" matches at any
+# depth and silently swallows source files -- netplay/macos/build-server.sh
+# was untrackable until this was fixed, with no error to say why. The build
+# directories this is for (build/, build-catfight/, build-server/) are all at
+# the root anyway.
+/build*
+*.swp
+*tags
+*~
+/.vscode/
+/baseq3
+
+# catfight: map compiler output. The .map source is tracked; everything q3map2
+# derives from it is not, since it is all rebuildable and the .bsp alone is
+# larger than the source that produced it.
+/catfight/maps/*.bsp
+/catfight/maps/*.prt
+/catfight/maps/*.srf
+/catfight/maps/*.lin
+/catfight/maps/*.aas
+
+# bspc writes its log into the CURRENT directory, not next to the map, so it
+# lands wherever the AAS build happened to be run from. Unanchored on purpose.
+bspc.log
+
+# catfight: cfmm build output and local state. Anchored for the same reason
+# /build* above is -- an unanchored *.db would also swallow anything named that
+# elsewhere in the tree. The database is per-deployment state, never source;
+# the schema that creates it IS source and lives in internal/store/migrations.
+/netplay/cfmm/cfmm
+/netplay/cfmm/cfmm.exe
+/netplay/cfmm/*.db
+/netplay/cfmm/*.db-wal
+/netplay/cfmm/*.db-shm
+/netplay/cfmm/backups/
+/netplay/cfagent/cfagent
+/netplay/cfagent/cfagent.exe
+
+# OS X
+####################
+.Spotlight-V100/
+.Trashes/
+._*
+.AppleDouble
+.DS_Store
+.LSOverride
+# NOTE: `?` is exactly one character, so this also matches any directory named
+# "icons". catfight's icon source lives in misc/icon (singular) for that
+# reason -- see mapping/gen_icon.ps1. Renaming it back would drop the master
+# art from this repo and from the published source tree, silently.
+Icon?
+
+# Xcode
+####################
+*.mode1v3
+*.mode2v3
+*.pbxuser
+*.perspectivev3
+*.user
+*.xcuserstate
+*.moved-aside
+*~.nib
+.idea/
+DerivedData/
+project.xcworkspace/
+xcuserdata/
+profile
+!default.pbxuser
+!default.mode1v3
+!default.mode2v3
+!default.perspectivev3
+
+# Microsoft Visual Studio
+####################
+*.sdf
+*.opensdf
+*.suo
+/.vs
+
+# Python bytecode from the Blender helper scripts in mapping/.
+__pycache__/
